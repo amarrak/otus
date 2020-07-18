@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: php
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+      - name: php
+        image: php:7-fpm
+        volumeMounts:
+        - name: code
+          mountPath: /code
+      initContainers:
+      - name: install
+        image: busybox
+        volumeMounts:
+        - name: code
+          mountPath: /code
+        command:
+        - wget
+        - "-O"
+        - "/code/index.php"
+        - https://raw.githubusercontent.com/amarrak/kube/master/index.php
