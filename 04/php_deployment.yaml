@@ -12,20 +12,29 @@ spec:
       labels:
         app: php
     spec:
+      volumes:
+      - name: code
+        persistentVolumeClaim:
+          claimName: code
       containers:
       - name: php
-        image: php:7-fpm
+        image: site:v1.4
         volumeMounts:
-        - name: code
-          mountPath: /code
-      initContainers:
-      - name: install
-        image: busybox
-        volumeMounts:
-        - name: code
-          mountPath: /code
-        command:
-        - wget
-        - "-O"
-        - "/code/index.php"
-        - https://raw.githubusercontent.com/amarrak/kube/master/index.php
+          - name: code
+            mountPath: /code
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+#        initContainers:
+#        - name: install
+#          image: busybox
+#          volumeMounts:
+#          - name: code
+#            mountPath: /code
+#          command:
+#          - wget
+#          - "-O"
+#          - "/code/index.php"
+#          - https://raw.githubusercontent.com/amarrak/kube/master/index.php
+        
