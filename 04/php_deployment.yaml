@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php
+  name: php-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php
+      app: php-app
   template:
     metadata:
       labels:
-        app: php
+        app: php-app
     spec:
       volumes:
       - name: code
@@ -18,7 +18,7 @@ spec:
           claimName: code
       containers:
       - name: php
-        image: site:v1.4
+        image: amarrak/site:v1.4
         volumeMounts:
           - name: code
             mountPath: /code
@@ -26,6 +26,7 @@ spec:
           postStart:
             exec:
               command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+
 #        initContainers:
 #        - name: install
 #          image: busybox
