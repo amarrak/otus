@@ -12,4 +12,4 @@ spec:
         - path: /otusapp/kirsanov($|/)(.*)
           backend:
             serviceName: nginx-service
-            servicePort: 8080
+            servicePort: 8000

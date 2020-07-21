@@ -18,7 +18,7 @@ spec:
           claimName: code
       containers:
       - name: php
-        image: amarrak/site:v1.4
+        image: amarrak/site:v1.5
         volumeMounts:
           - name: code
             mountPath: /code
