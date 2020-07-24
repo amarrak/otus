@@ -21,13 +21,25 @@ spec:
         image: amarrak/site:v1.12
         env:
         - name: DB_HOST
-          value: mysql
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_HOST
         - name: DB_NAME
-          value: myapp
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_NAME
         - name: DB_USER
-          value: root
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_USER
         - name: DB_PWD
-          value: password
+          valueFrom:
+            secretKeyRef:
+              name: php-secret
+              key: DB_PWD
         volumeMounts:
           - name: code
             mountPath: /code
