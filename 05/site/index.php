@@ -4,7 +4,7 @@ include './lib/loader.php';
 $request = new Request();
 $response = new Response($request);
 
-$db = new Database("", "", "", "");
+$db = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["DB_PWD"]);
 
 $router = new Router();
 
@@ -66,6 +66,22 @@ $router->post("user", static function() use ($request, $db) {
 	return [
 		"400 Bad Request",
 		["code" => $user->getLastErrorCode(), "message" => $user->getLastErrorMessage()]
+	];
+}
+);
+
+$router->get("health", static function() {
+	return [
+		"200 OK",
+		["status" => "OK"]
+	];
+}
+);
+
+$router->get("", static function() {
+	return [
+		"200 OK",
+		["status" => "OK"]
 	];
 }
 );

@@ -18,7 +18,16 @@ spec:
           claimName: code
       containers:
       - name: php
-        image: amarrak/site:v1.5
+        image: amarrak/site:v1.12
+        env:
+        - name: DB_HOST
+          value: mysql
+        - name: DB_NAME
+          value: myapp
+        - name: DB_USER
+          value: root
+        - name: DB_PWD
+          value: password
         volumeMounts:
           - name: code
             mountPath: /code
