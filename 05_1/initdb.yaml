@@ -8,6 +8,18 @@ spec:
       name: initdb-job
     spec:
       restartPolicy: Never
+      initContainers:
+      - name: check-db-ready
+        image: mysql:5.6
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        command:
+          - sh
+          - "-c"
+          - |
+            until mysqladmin ping -hmysql --silent;
+            do echo waiting for database; sleep 2; done;
       containers:
       - name: post-install-job
         env:
