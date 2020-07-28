@@ -1,0 +1,19 @@
+mysqlRootPassword: password
+mysqlDatabase: myapp
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  annotations: {}
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+
+service:
+  annotations: {}
+  type: NodePort
+  port: 3306
+
