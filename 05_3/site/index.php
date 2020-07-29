@@ -58,9 +58,12 @@ $router->get("user/{id}", static function($id) use ($db) {
 $router->post("user", static function() use ($request, $db) {
 	$user = new User($db);
 
-	if ($user->add($request->getInput()))
+	if ($userId = $user->add($request->getInput()))
 	{
-		return ["201 Created"];
+		return [
+			"200 OK",
+			["id" => $userId]
+		];
 	}
 
 	return [
