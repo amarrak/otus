@@ -133,7 +133,7 @@ class User
 		return $id;
 	}
 
-	public function getById($id) : array
+	public function getById($id)
 	{
 		$id = (int)$id;
 		if ($id <= 0)
@@ -154,6 +154,6 @@ class User
 
 		$statement = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$statement->execute($subValues);
-		return $statement->fetchAll();
+		return $statement->fetch();
 	}
 }

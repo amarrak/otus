@@ -1,19 +1,18 @@
-mysqlRootPassword: password
-mysqlDatabase: myapp
+fullnameOverride: mysql
 
-persistence:
-  enabled: true
-  accessMode: ReadWriteOnce
-  size: 1Gi
-  annotations: {}
+root:
+  password: password
 
-resources:
-  requests:
-    memory: 256Mi
-    cpu: 100m
+db:
+  name: myapp
+
+replication:
+  enabled: false
+
+master:
+  persistence:
+    size: 1Gi
 
 service:
-  annotations: {}
   type: NodePort
   port: 3306
-
