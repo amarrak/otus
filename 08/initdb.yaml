@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: initdb-job
+spec:
+  template:
+    metadata:
+      name: initdb-job
+    spec:
+      restartPolicy: Never
+      initContainers:
+      - name: check-db-ready
+        image: mysql:5.6
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        command:
+          - sh
+          - "-c"
+          - |
+            until mysqladmin ping -hmysql --silent;
+            do echo waiting for database; sleep 2; done;
+      containers:
+      - name: post-install-job
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        image: mysql:5.6
+        command: 
+          - /bin/sh
+          - "-c"
+          - |
+            mysql --host=mysql -uroot -ppassword myapp <<'EOF'
+              create table b_user (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(255) not null, firstName varchar(255) null, lastName varchar(255) null, email varchar(255) null, phone varchar(255) null);
+              insert into b_user (username) values ('admin');
+            EOF
+  backoffLimit: 2

@@ -5,6 +5,11 @@ ingress:
       serviceName: nginx-service
       servicePort: 8000
 
+nameOverride: "myapp"
+fullnameOverride: ""
+
+
+
 replicaCount: 1
 
 image:
@@ -13,8 +18,6 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
