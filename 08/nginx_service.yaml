@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx-service
+#  namespace: myapp
+  labels:
+    pro-monitor
 spec:
   selector:
     app: nginx-app
@@ -9,4 +12,8 @@ spec:
   - protocol: TCP
     port: 8000
     targetPort: 80
+    name: web
+  - port: 9093
+    targetPort: 9000
+    name: metrics
   type: NodePort

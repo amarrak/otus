@@ -1,5 +1,9 @@
 <?php
+$startScriptExecutionTime = microtime(true);
+
 include './lib/loader.php';
+
+Metrics::register();
 
 $request = new Request();
 $response = new Response($request);
@@ -77,6 +81,27 @@ $router->get("health", static function() {
 	return [
 		"200 OK",
 		["status" => "OK"]
+	];
+}
+);
+
+$router->get("metrics", static function() {
+	$adapter = new \Prometheus\Storage\APC();
+	$registry = new \Prometheus\CollectorRegistry($adapter);
+	$renderer = new \Prometheus\RenderTextFormat();
+	$result = $renderer->render($registry->getMetricFamilySamples());
+
+	return [
+		"200 OK",
+		$result
+	];
+}
+);
+
+$router->get("info", static function() {
+	phpinfo();
+	return [
+		"200 OK"
 	];
 }
 );

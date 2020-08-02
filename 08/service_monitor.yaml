@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: pro-monitor
+  labels:
+    app: pro-monitor
+spec:
+  endpoints:
+  - port: 9093
+    scheme: http
+    path: /metrics
+    interval: 60s
+  selector:
+    matchLabels:
+      app: pro-monitor
+#  namespaceSelector:
+#    matchNames:
+#    - myapp

@@ -24,7 +24,10 @@ class Response
 
 		if (!empty($data))
 		{
-			echo json_encode($data);
+			if (is_array($data))
+				echo json_encode($data);
+			else
+				echo $data;
 		}
 	}
 
