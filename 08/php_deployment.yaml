@@ -18,7 +18,7 @@ spec:
           claimName: code
       containers:
       - name: php
-        image: amarrak/site:v1.17
+        image: amarrak/site:v1.18
         env:
         - name: DB_HOST
           valueFrom:

@@ -6,7 +6,7 @@ metadata:
     app: pro-monitor
 spec:
   endpoints:
-  - port: 9093
+  - port: web
     scheme: http
     path: /metrics
     interval: 60s

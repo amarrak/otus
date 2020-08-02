@@ -1,6 +1,8 @@
 helm repo add bitnami https://charts.bitnami.com/bitnami
 
 helm install --name mms bitnami/mysql -f .\mysql\values1.yaml
+helm install -n prom stable/prometheus-operator -f .\mysql\prometheus.yaml --atomic
+helm install -n nginx stable/nginx-ingress -f .\mysql\nginx_ingress.yaml --atomic
 
 minikube service mysql -n myapp --url
 
@@ -10,4 +12,8 @@ docker push amarrak/site:v1.13
 minikube service nginx-service -n myapp --url
 
 kubectl set image deployment/php-deployment php=amarrak/site:v1.15 --record
+
+kubectl port-forward service/prom-prometheus-operator-prometheus 9091:9090
+
+kubectl config set-context --current --namespace=monitoring
 
