@@ -1,0 +1,22 @@
+> kubectl get po -n kube-system | grep cni
+NAME                               READY   STATUS    RESTARTS   AGE
+istio-cni-node-6pbff               2/2     Running   2          46h
+
+> kubectl -n kube-system logs istio-cni-node-6pbff install-cni
+Wrote Istio CNI binaries to /host/opt/cni/bin.
+/host/secondary-bin-dir is non-writable, skipping
+Using CNI config template from CNI_NETWORK_CONFIG environment variable.
+CNI config: {
+  "cniVersion": "0.3.1",
+  "name": "istio-cni",
+  "type": "istio-cni",
+  "log_level": "info",
+  "kubernetes": {
+      "kubeconfig": "/etc/cni/net.d/ZZZ-istio-cni-kubeconfig",
+      "cni_bin_dir": "/opt/cni/bin",
+      "exclude_namespaces": [ "istio-system", "kube-system" ]
+  }
+}
+Created CNI config 87-podman-bridge.conflist
+Done configuring CNI.  Sleep=true
+
