@@ -300,4 +300,15 @@ PS C:\projects\github\otus-homework-istio> vagrant up                           
     k8s-master: To see the stack trace of this error execute with --v=5 or higher
     k8s-master: The connection to the server 10.0.0.10:6443 was refused - did you specify the right host or port?
     k8s-master: The connection to the server 10.0.0.10:6443 was refused - did you specify the right host or port?
-                                                                                                                   
+    k8s-master: 2020-08-08 10:39:51 URL:https://github-production-release-asset-2e65be.s3.amazonaws.com/74175805/3bf28400-bace-11ea-9999-cef49ba51612?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20200808%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200808T102543Z&X-Amz-Expires=300&X-Amz-Signature=19f57f29ce5e7d169d2cbb58851536bf6270c37ec9eaf6ee7d6205b6214e344c&X-Amz-SignedHeaders=host&actor_id=0&repo_id=74175805&response-content-disposition=attachment%3B%20filename%3Distioctl-1.6.4-linux-amd64.tar.gz&response-content-type=application%2Foctet-stream [40911016/40911016] -> "istioctl-1.6.4-linux-amd64.tar.gz" [1]
+    k8s-master: -rwxr-xr-x root/root 107735485 2020-06-25 20:04 istioctl
+    k8s-master:
+    k8s-master: gzip: stdin: invalid compressed data--format violated
+    k8s-master: tar: Unexpected EOF in archive
+    k8s-master: tar: Unexpected EOF in archive
+    k8s-master: tar: Error is not recoverable: exiting now
+    k8s-master: unable to prepare context: path "/home/vagrant/app/src/" not found
+The SSH command responded with a non-zero exit status. Vagrant
+assumes that this means the command failed. The output for this command
+should be in the log above. Please read the output to determine what
+went wrong.                                                                                                                   
