@@ -1,22 +1,59 @@
-> kubectl get po -n kube-system | grep cni
-NAME                               READY   STATUS    RESTARTS   AGE
-istio-cni-node-6pbff               2/2     Running   2          46h
+vagrant@k8s-master:~$ sudo docker ps -a | grep kube | grep -v pause
+496731f2f02d        56acd67ea15a           "kube-apiserver --ad…"   2 seconds ago       Up Less than a second                          k8s_kube-apiserver_kube-apiserver-k8s-master_kube-system_b06cf80dfd986c96bc5e68d9089c65b9_6
+1d4c02eb21b2        56acd67ea15a           "kube-apiserver --ad…"   2 minutes ago       Exited (1) 2 minutes ago                       k8s_kube-apiserver_kube-apiserver-k8s-master_kube-system_b06cf80dfd986c96bc5e68d9089c65b9_5
+5ce9f106bdf8        303ce5db0e90           "etcd --advertise-cl…"   6 minutes ago       Up 6 minutes                                   k8s_etcd_etcd-k8s-master_kube-system_943919d4f3df61192de0eadf0c845929_0
+f47b5ce58b1d        0e0972b2b5d1           "kube-scheduler --au…"   6 minutes ago       Up 6 minutes                                   k8s_kube-scheduler_kube-scheduler-k8s-master_kube-system_3dd66788a2c7782d910d05ea37b91678_0
+88c957a41df8        ffce5e64d915           "kube-controller-man…"   6 minutes ago       Up 6 minutes                                   k8s_kube-controller-manager_kube-controller-manager-k8s-master_kube-system_96824fdf76a8620088483fdcb73e906e_0
 
-> kubectl -n kube-system logs istio-cni-node-6pbff install-cni
-Wrote Istio CNI binaries to /host/opt/cni/bin.
-/host/secondary-bin-dir is non-writable, skipping
-Using CNI config template from CNI_NETWORK_CONFIG environment variable.
-CNI config: {
-  "cniVersion": "0.3.1",
-  "name": "istio-cni",
-  "type": "istio-cni",
-  "log_level": "info",
-  "kubernetes": {
-      "kubeconfig": "/etc/cni/net.d/ZZZ-istio-cni-kubeconfig",
-      "cni_bin_dir": "/opt/cni/bin",
-      "exclude_namespaces": [ "istio-system", "kube-system" ]
-  }
-}
-Created CNI config 87-podman-bridge.conflist
-Done configuring CNI.  Sleep=true
 
+vagrant@k8s-master:~$ journalctl -xeu kubelet
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.222610   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.293801   18057 kubelet.go:2188] Container runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.324976   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.443857   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.561630   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.669452   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.788794   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.890093   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:27 k8s-master kubelet[18057]: E0811 16:43:27.994007   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.096020   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.201683   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.302985   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.404349   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.505949   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.609402   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.725979   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.834604   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:28 k8s-master kubelet[18057]: E0811 16:43:28.940750   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.055244   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.156872   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.247642   18057 controller.go:136] failed to ensure node lease exists, will retry in 7s, error: Get https://10.0.0.10:6443/apis/coordination.k8s.io/v1/
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.262139   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.366278   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.479736   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.614031   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.723582   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.825023   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:29 k8s-master kubelet[18057]: I0811 16:43:29.926907   18057 kubelet_node_status.go:294] Setting node annotation to enable volume controller attach/detach
+Aug 11 16:43:29 k8s-master kubelet[18057]: E0811 16:43:29.929778   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.032086   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.136441   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: I0811 16:43:30.169169   18057 kubelet_node_status.go:70] Attempting to register node k8s-master
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.170100   18057 kubelet_node_status.go:92] Unable to register node "k8s-master" with API server: Post https://10.0.0.10:6443/api/v1/nodes: dial tcp 10.
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.240023   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.343194   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.446256   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.547851   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.651982   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.755602   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.857176   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:30 k8s-master kubelet[18057]: W0811 16:43:30.862899   18057 cni.go:237] Unable to update cni config: no networks found in /etc/cni/net.d
+Aug 11 16:43:30 k8s-master kubelet[18057]: E0811 16:43:30.959380   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.060613   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.162014   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.265889   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.388977   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.492333   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.596362   18057 kubelet.go:2268] node "k8s-master" not found
+Aug 11 16:43:31 k8s-master kubelet[18057]: E0811 16:43:31.703860   18057 kubelet.go:2268] node "k8s-master" not found
+                                                                                                                       
