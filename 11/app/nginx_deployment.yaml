@@ -1,24 +1,32 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: app-nginx-deployment
+  namespace: myapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nginx-app
+      app: app-nginx
   template:
     metadata:
       labels:
-        app: nginx-app
+        app: app-nginx
     spec:
       volumes:
-      - name: code
+      - name: app-code
         persistentVolumeClaim:
-          claimName: code
+          claimName: app-code
       - name: config
         configMap:
-          name: nginx-config
+          name: app-nginx-config
           items:
           - key: config
             path: site.conf
@@ -28,7 +36,7 @@ spec:
         ports:
         - containerPort: 80
         volumeMounts:
-        - name: code
+        - name: app-code
           mountPath: /code
         - name: config
           mountPath: /etc/nginx/conf.d

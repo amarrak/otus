@@ -1,6 +1,4 @@
 <?php
-$startScriptExecutionTime = microtime(true);
-
 include './lib/loader.php';
 
 $request = new Request();
@@ -11,6 +9,14 @@ $db = new Database($_ENV["DB_HOST"], $_ENV["DB_NAME"], $_ENV["DB_USER"], $_ENV["
 $router = new Router();
 
 $router->put("user/{id}", static function($id) use ($request, $db) {
+
+	$headers = $request->getHeaders();
+
+	if (!isset($headers['X-UserId']) || ((int)$headers['X-UserId'] !== $id))
+	{
+		return ["401 Unauthorized"];
+	}
+
 	$user = new User($db);
 
 	if ($user->update($id, $request->getInput()))
@@ -24,7 +30,15 @@ $router->put("user/{id}", static function($id) use ($request, $db) {
 	];
 });
 
-$router->delete("user/{id}", static function($id) use ($db) {
+$router->delete("user/{id}", static function($id) use ($request, $db) {
+
+	$headers = $request->getHeaders();
+
+	if (!isset($headers['X-UserId']) || ((int)$headers['X-UserId'] !== $id))
+	{
+		return ["401 Unauthorized"];
+	}
+
 	$user = new User($db);
 
 	if ($user->delete($id))
@@ -40,7 +54,15 @@ $router->delete("user/{id}", static function($id) use ($db) {
 	];
 });
 
-$router->get("user/{id}", static function($id) use ($db) {
+$router->get("user/{id}", static function($id) use ($request, $db) {
+
+	$headers = $request->getHeaders();
+
+	if (!isset($headers['X-UserId']) || ((int)$headers['X-UserId'] !== $id))
+	{
+		return ["401 Unauthorized"];
+	}
+
 	$user = new User($db);
 
 	if ($data = $user->getById($id))
@@ -99,6 +121,6 @@ $router->get("", static function() {
 }
 );
 
-list($status, $data) = $router->dispatch($request->getRequestMethod(), $request->getRequestUri());
+list($status, $data, $headers) = $router->dispatch($request->getRequestMethod(), $request->getRequestUri());
 
-$response->render($status, $data);
+$response->render($status, $data, $headers);

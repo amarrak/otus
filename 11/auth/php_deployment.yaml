@@ -1,21 +1,29 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-deployment
+  name: app-auth-php-deployment
+  namespace: myapp
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: php-app
+      app: app-auth-php
   template:
     metadata:
       labels:
-        app: php-app
+        app: app-auth-php
     spec:
       volumes:
-      - name: code
+      - name: app-auth-code
         persistentVolumeClaim:
-          claimName: code
+          claimName: app-auth-code
       containers:
       - name: php
         image: amarrak/site:v1.18
@@ -41,7 +49,7 @@ spec:
               name: php-secret
               key: DB_PWD
         volumeMounts:
-          - name: code
+          - name: app-auth-code
             mountPath: /code
         lifecycle:
           postStart:

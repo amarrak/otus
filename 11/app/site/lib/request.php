@@ -23,4 +23,9 @@ class Request
 		$inputData = file_get_contents("php://input");
 		return json_decode($inputData, true);
 	}
+
+	public function getHeaders()
+	{
+		return apache_request_headers();
+	}
 }

@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-php-deployment
+  namespace: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-php
+  template:
+    metadata:
+      labels:
+        app: app-php
+    spec:
+      volumes:
+      - name: app-code
+        persistentVolumeClaim:
+          claimName: app-code
+      containers:
+      - name: php
+        image: amarrak/site:v1.18
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_USER
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: php-secret
+              key: DB_PWD
+        volumeMounts:
+          - name: app-code
+            mountPath: /code
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+
+#        initContainers:
+#        - name: install
+#          image: busybox
+#          volumeMounts:
+#          - name: code
+#            mountPath: /code
+#          command:
+#          - wget
+#          - "-O"
+#          - "/code/index.php"
+#          - https://raw.githubusercontent.com/amarrak/kube/master/index.php
+        

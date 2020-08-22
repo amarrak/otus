@@ -5,7 +5,7 @@ class User
 {
 	use ErrorTrait;
 
-	private static $availableFields = ["username", "firstName", "lastName", "email", "phone"];
+	private static $availableFields = ["login", "password", "firstName", "lastName", "email", "phone"];
 
 	/** @var Database $db */
 	private $db;
@@ -156,4 +156,29 @@ class User
 		$statement->execute($subValues);
 		return $statement->fetch();
 	}
+
+	public function getByCredentials($login, $password)
+	{
+		if (empty($login) <= 0)
+		{
+			$this->setError(1, "Invalid argument 'login'");
+			return [];
+		}
+
+		$sql = 'SELECT * FROM b_user where login = :login and password = :password';
+		$subValues[":login"] = $login;
+		$subValues[":password"] = $password;
+
+		$conn = $this->db->getConnection();
+		if ($conn === null)
+		{
+			$this->setError($this->db);
+			return [];
+		}
+
+		$statement = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
+		$statement->execute($subValues);
+		return $statement->fetch();
+	}
+
 }

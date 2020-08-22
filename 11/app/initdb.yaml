@@ -31,7 +31,7 @@ spec:
           - "-c"
           - |
             mysql --host=mysql -uroot -ppassword myapp <<'EOF'
-              create table b_user (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, username varchar(255) not null, firstName varchar(255) null, lastName varchar(255) null, email varchar(255) null, phone varchar(255) null);
-              insert into b_user (username) values ('admin');
+              create table b_user (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, login varchar(255) not null, password varchar(255) not null, firstName varchar(255) null, lastName varchar(255) null, email varchar(255) null, phone varchar(255) null);
+              insert into b_user (login, password) values ('admin', 'admin');
             EOF
   backoffLimit: 2
