@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: php-config
+data:
+  DB_HOST: mysql
+  DB_NAME: myapp
+  DB_USER: root
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: php-secret
+type: Opaque
+data:
+  DB_PWD: cGFzc3dvcmQ=
