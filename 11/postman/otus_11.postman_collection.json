@@ -23,14 +23,32 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5b74b175-ffe7-475b-aedc-bc512699f5e6",
+						"exec": [
+							"pm.collectionVariables.set(\"login1\", pm.variables.replaceIn('{{$randomFirstName}}_{{$timestamp}}'));",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"login\":\"user\", \"password\":\"user\", \"firstName\":\"Петр\", \"lastName\":\"Петров\", \"email\":\"petya@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
+					"raw": "{\"login\":\"{{login1}}\", \"password\":\"user\", \"firstName\":\"Петр\", \"lastName\":\"Петров\", \"email\":\"petya@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -107,7 +125,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"login\":\"user\", \"password\":\"user\"}",
+					"raw": "{\"login\":\"{{login1}}\", \"password\":\"user\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -285,6 +303,17 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b36720ce-5f15-4222-854f-9bd49031de7a",
+						"exec": [
+							"pm.collectionVariables.set(\"login2\", pm.variables.replaceIn('{{$randomFirstName}}_{{$timestamp}}'));",
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -292,7 +321,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"login\":\"user1\", \"password\":\"user1\", \"firstName\":\"Петр1\", \"lastName\":\"Петров1\", \"email\":\"petya1@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
+					"raw": "{\"login\":\"{{login2}}\", \"password\":\"user\", \"firstName\":\"Петр1\", \"lastName\":\"Петров1\", \"email\":\"petya1@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -334,7 +363,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"login\":\"user1\", \"password\":\"user1\"}",
+					"raw": "{\"login\":\"{{login2}}\", \"password\":\"user\"}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -467,18 +496,28 @@
 	],
 	"variable": [
 		{
-			"id": "2f6ef4cb-9fdb-47e3-9e86-bcda5c39aa80",
+			"id": "b7071246-3874-4939-847a-c3ebf85556b6",
 			"key": "baseUrl",
 			"value": "arch.homework"
 		},
 		{
-			"id": "bca4c4bb-d314-4fc5-a70d-d9b302aaf392",
+			"id": "b667ad2b-967d-4cbc-a985-f41ed7e0daad",
 			"key": "userId1",
 			"value": ""
 		},
 		{
-			"id": "66085cb1-8923-4bbd-ac04-4d5df591f3cf",
+			"id": "7009322e-b972-459c-9d1f-ccebb9891eb9",
 			"key": "userId2",
+			"value": ""
+		},
+		{
+			"id": "c19f10a8-0899-47ab-a17e-3a2eeb315e3f",
+			"key": "login1",
+			"value": ""
+		},
+		{
+			"id": "50533902-a2fe-471c-b819-7e5f5cae6989",
+			"key": "login2",
 			"value": ""
 		}
 	],
