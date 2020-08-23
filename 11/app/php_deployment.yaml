@@ -26,7 +26,7 @@ spec:
           claimName: app-code
       containers:
       - name: php
-        image: amarrak/site:v1.43
+        image: amarrak/site:v1.45
         env:
         - name: DB_HOST
           valueFrom:

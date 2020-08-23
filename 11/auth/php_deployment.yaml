@@ -26,7 +26,7 @@ spec:
           claimName: app-auth-code
       containers:
       - name: php
-        image: amarrak/siteauth:v1.43
+        image: amarrak/siteauth:v1.45
         env:
         - name: DB_HOST
           valueFrom:

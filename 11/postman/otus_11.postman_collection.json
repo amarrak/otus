@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "6c48db1e-bf24-4684-b10a-68c2cffefa84",
+		"name": "otus_11",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "registerUser1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21528ac3-3134-4e3f-b889-7087ee3d6bf4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var responseJSON = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"userId1\", responseJSON[\"id\"]);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"user\", \"password\":\"user\", \"firstName\":\"Петр\", \"lastName\":\"Петров\", \"email\":\"petya@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/register/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser1_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac74ca7-e9f9-4bc9-8485-9be89cf6962e",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId1}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f89497c6-9908-48f1-bd84-1ab9c6ee0a24",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"user\", \"password\":\"user\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/login",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser1_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05b87aa7-96e1-470c-90ff-2310d5259741",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql(\"Петр\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId1}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0a6ed3bc-5843-4ebd-a2fe-afb58b25a70c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"firstName\":\"Иван\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId1}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser1_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1675c74f-7596-4d5b-88ae-817b61b64923",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.firstName).to.eql(\"Иван\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId1}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/logout/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registerUser2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2272c57-947b-4bec-8e5d-f4e445481f52",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"var responseJSON = JSON.parse(responseBody);",
+							"pm.collectionVariables.set(\"userId2\", responseJSON[\"id\"]);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"user1\", \"password\":\"user1\", \"firstName\":\"Петр1\", \"lastName\":\"Петров1\", \"email\":\"petya1@null.com\", \"phone\":\"8 (906) 657-98-00\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/register/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"register",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "loginUser2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30c96b66-c226-4dc8-8a85-9c1988e81256",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"login\":\"user1\", \"password\":\"user1\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/login/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser2_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "10c4ee17-d694-4416-91f1-6bd15a8eb0d1",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId1}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUser2_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "36831442-c0ab-4c29-ae2f-2901d9fd836f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/users/user/{{userId2}}",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"user",
+						"{{userId2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{baseUrl}}/logout/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3023ef1d-f76b-4b5c-a88a-8208756f23e3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "5bbd105c-4830-4729-afbd-a480bedda880",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "2f6ef4cb-9fdb-47e3-9e86-bcda5c39aa80",
+			"key": "baseUrl",
+			"value": "arch.homework"
+		},
+		{
+			"id": "bca4c4bb-d314-4fc5-a70d-d9b302aaf392",
+			"key": "userId1",
+			"value": ""
+		},
+		{
+			"id": "66085cb1-8923-4bbd-ac04-4d5df591f3cf",
+			"key": "userId2",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}

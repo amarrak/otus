@@ -159,7 +159,7 @@ class User
 
 	public function getByCredentials($login, $password)
 	{
-		if (empty($login) <= 0)
+		if (empty($login))
 		{
 			$this->setError(1, "Invalid argument 'login'");
 			return [];
@@ -178,6 +178,7 @@ class User
 
 		$statement = $conn->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 		$statement->execute($subValues);
+
 		return $statement->fetch();
 	}
 
