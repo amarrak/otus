@@ -55,9 +55,14 @@ class Router
 		$route = trim($route, '/');
 		$routeData = $this->routeParser->parse($route);
 
-		isset($routeData[1]) ?
-			$this->addVariableRoute($httpMethod, $routeData, $handler) :
+		if (isset($routeData[1]))
+		{
+			$this->addVariableRoute($httpMethod, $routeData, $handler);
+		}
+		else
+		{
 			$this->addStaticRoute($httpMethod, $routeData, $handler);
+		}
 
 		return $this;
 	}
@@ -77,6 +82,11 @@ class Router
 
 	public function dispatch($httpMethod, $uri)
 	{
+		if (($pos = strpos($uri, "?")) !== false)
+		{
+			$uri = substr($uri, 0, $pos);
+		}
+
 		list($handler, $vars) = $this->dispatchRoute($httpMethod, trim($uri, '/'));
 
 		return call_user_func_array($handler, $vars);

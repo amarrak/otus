@@ -11,7 +11,7 @@ metadata:
   name: app-auth-php-deployment
   namespace: myapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: app-auth-php
@@ -26,7 +26,7 @@ spec:
           claimName: app-auth-code
       containers:
       - name: php
-        image: amarrak/site:v1.18
+        image: amarrak/siteauth:v1.43
         env:
         - name: DB_HOST
           valueFrom:

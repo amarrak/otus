@@ -40,16 +40,16 @@ spec:
           mountPath: /code
         - name: config
           mountPath: /etc/nginx/conf.d
-        livenessProbe:
-          httpGet:
-            port: 80
-            path: /
-          initialDelaySeconds: 10
-          periodSeconds: 5
-          timeoutSeconds: 2
-        readinessProbe:
-          httpGet:
-            port: 80
-            path: /health
-          initialDelaySeconds: 10
-          periodSeconds: 5
+#        livenessProbe:
+#          httpGet:
+#            port: 80
+#            path: /
+#          initialDelaySeconds: 10
+#          periodSeconds: 5
+#          timeoutSeconds: 2
+#        readinessProbe:
+#          httpGet:
+#            port: 80
+#            path: /health
+#          initialDelaySeconds: 10
+#          periodSeconds: 5

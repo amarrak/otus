@@ -8,5 +8,3 @@ spl_autoload_register(static function ($class) {
 
 	include strtolower($class).'.php';
 });
-
-require __DIR__ . '/../vendor/autoload.php';
