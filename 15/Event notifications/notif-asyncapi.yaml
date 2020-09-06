@@ -65,7 +65,7 @@ channels:
       message:
         tags:
           - name: user
-        name: orderCreationRequested
+        name: orderRequested
         title: Пользователь запросил оформление заказа
         payload:
            type: object
@@ -99,10 +99,10 @@ channels:
           - payload:
               id: 42
 
-  order-service/billingRequested:
+  order-service/paymentRequested:
     publish:
       message:
-        name: billingRequested
+        name: paymentRequested
         title: Запрошена оплата заказа
         payload:
            type: object
@@ -113,11 +113,25 @@ channels:
           - payload:
               id: 42
 
-  billing-service/billPayed:
+  billing-service/paymentSuccessful:
     publish:
       message:
-        name: billPayed
+        name: paymentSuccessful
         title: Счет заказа оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+        examples:
+          - payload:
+              id: 42
+
+  billing-service/paymentFailed:
+    publish:
+      message:
+        name: paymentFailed
+        title: Счет заказа не оплачен
         payload:
            type: object
            properties:
@@ -140,5 +154,20 @@ channels:
         examples:
           - payload:
               id: 42
+
+  order-service/orderFailed:
+    publish:
+      message:
+        name: orderFailed
+        title: Заказ не оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+        examples:
+          - payload:
+              id: 42
+
 
 
