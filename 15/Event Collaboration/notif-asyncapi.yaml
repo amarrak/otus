@@ -1,0 +1,255 @@
+asyncapi: 2.0.0
+info:
+  title: Оформление заказа
+  version: '1.0.0'
+defaultContentType: application/json
+
+channels:
+  gateway/registrationRequested:
+    publish:
+      message:
+        tags:
+          - name: user
+        name: registrationRequested
+        title: Пользователь запросил регистрацию
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             username:
+               type: string
+             firstName:
+               type: string
+             lastName:
+               type: string
+             email:
+               type: string
+             password:
+               type: string
+             phone:
+               type: string
+             address:
+               type: string
+           required: 
+             - username
+             - password
+             - email
+        examples:
+          - payload:
+              username: vasya
+              firstName: Василий
+              lastName: Пупкин
+              email: pupkin
+              phone: '+65764646464'
+              password: '87557464'
+              address: 'ул. Кирова, д.32, кв. 5'
+
+  user-service/userCreated:
+    publish:
+      message:
+        name: userCreated
+        title: Пользователь создан
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             username:
+               type: string
+             firstName:
+               type: string
+             lastName:
+               type: string
+             email:
+               type: string
+             phone:
+               type: string
+             address:
+               type: string
+        examples:
+          - payload:
+              id: 42
+              username: vasya
+              firstName: Василий
+              lastName: Пупкин
+              email: pupkin
+              phone: '+65764646464'
+              password: '87557464'
+              address: 'ул. Кирова, д.32, кв. 5'
+
+  gateway/orderRequested:
+    publish:
+      message:
+        tags:
+          - name: user
+        name: orderRequested
+        title: Пользователь запросил оформление заказа
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - userid
+             - sum
+        examples:
+          - payload:
+              userid: 18
+              sum: 100
+
+  order-service/orderCreated:
+    publish:
+      message:
+        name: orderCreated
+        title: Заказ создан
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+
+  order-service/paymentRequested:
+    publish:
+      message:
+        name: paymentRequested
+        title: Запрошена оплата заказа
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+
+  billing-service/paymentSuccessful:
+    publish:
+      message:
+        name: paymentSuccessful
+        title: Счет заказа оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - id
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+
+  billing-service/paymentFailed:
+    publish:
+      message:
+        name: paymentFailed
+        title: Счет заказа не оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required:
+             - id
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+
+  order-service/orderPayed:
+    publish:
+      message:
+        name: orderPayed
+        title: Заказ оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - id
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+
+  order-service/orderFailed:
+    publish:
+      message:
+        name: orderFailed
+        title: Заказ не оплачен
+        payload:
+           type: object
+           properties:
+             id:
+               type: integer
+               format: int64
+             userid:
+               type: integer
+             sum:
+               type: integer
+           required: 
+             - id
+             - userid
+             - sum
+        examples:
+          - payload:
+              id: 42
+              userid: 18
+              sum: 100
+

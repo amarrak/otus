@@ -55,21 +55,31 @@ deactivate Gateway
 Order Service->>Message Broker: publish
 deactivate Order Service
 activate Message Broker
-Note right of Message Broker: BillingRequested
+Note right of Message Broker: PaymentRequested
 Message Broker-->>Billing Service: consume
 deactivate Message Broker
 activate Billing Service
+alt Success
 Billing Service->>Message Broker: publish
-deactivate Billing Service
 activate Message Broker
-Note right of Message Broker: BillPayed
+Note right of Message Broker: PaymentSuccessful
+else Failure
+Billing Service->>Message Broker: publish
+end
+deactivate Billing Service
+Note right of Message Broker: PaymentFailed
 Message Broker-->>Order Service: consume
 deactivate Message Broker
 activate Order Service
+alt Success
 Order Service->>Message Broker: publish
-deactivate Order Service
 activate Message Broker
 Note right of Message Broker: OrderPayed
+else Failure
+Order Service->>Message Broker: publish
+end
+deactivate Order Service
+Note right of Message Broker: OrderFailed
 Message Broker-->>Notification Service: consume
 deactivate Message Broker
 activate Notification Service
