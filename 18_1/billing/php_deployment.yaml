@@ -1,0 +1,70 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: myapp
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-billing-php-deployment
+  namespace: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-billing-php
+  template:
+    metadata:
+      labels:
+        app: app-billing-php
+    spec:
+      volumes:
+      - name: app-billing-code
+        persistentVolumeClaim:
+          claimName: app-billing-code
+      containers:
+      - name: php
+        image: amarrak/sitebilling:v1.45
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: php-config
+              key: DB_USER
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: php-secret
+              key: DB_PWD
+        volumeMounts:
+          - name: app-billing-code
+            mountPath: /code
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+
+#        initContainers:
+#        - name: install
+#          image: busybox
+#          volumeMounts:
+#          - name: code
+#            mountPath: /code
+#          command:
+#          - wget
+#          - "-O"
+#          - "/code/index.php"
+#          - https://raw.githubusercontent.com/amarrak/kube/master/index.php
+        

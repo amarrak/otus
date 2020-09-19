@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d31648d6-f4ed-4931-95b0-5b98450eb3dd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="ProjectId" id="1hinrAou8QkVkzPjaMAD8NpLLPT" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/billing" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="settings.php.quality.tools" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/billing/site/lib" />
+      <recent name="$PROJECT_DIR$/billing/site/lib/kernel" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/billing" />
+      <recent name="$PROJECT_DIR$/billing/site/lib" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d31648d6-f4ed-4931-95b0-5b98450eb3dd" name="Default Changelist" comment="" />
+      <created>1600502977265</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1600502977265</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="471" y="219" key="#Plugins" timestamp="1600503300803">
+      <screen x="0" y="23" width="1742" height="1097" />
+    </state>
+    <state x="471" y="219" key="#Plugins/0.23.1742.1097@0.23.1742.1097" timestamp="1600503300803" />
+    <state x="690" y="502" key="NewPhpFileDialog" timestamp="1600519427069">
+      <screen x="0" y="23" width="1742" height="1097" />
+    </state>
+    <state x="690" y="502" key="NewPhpFileDialog/0.23.1742.1097@0.23.1742.1097" timestamp="1600519427069" />
+    <state x="372" y="210" key="SettingsEditor" timestamp="1600503692309">
+      <screen x="0" y="23" width="1742" height="1097" />
+    </state>
+    <state x="372" y="210" key="SettingsEditor/0.23.1742.1097@0.23.1742.1097" timestamp="1600503692309" />
+  </component>
+</project>

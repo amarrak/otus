@@ -1,0 +1,32 @@
+docker build -t amarrak/siteauth:v1.23 .
+docker push amarrak/siteauth:v1.23
+
+docker build -t amarrak/site:v1.22 .
+docker push amarrak/site:v1.22
+
+
+kubectl set image deployment/app-auth-php-deployment php=amarrak/site:v1.23 -n myapp --record
+
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+helm install mms bitnami/mysql -f ./helm_values/values.yaml -n myapp
+
+
+kubectl apply -f .
+
+
+minikube service mysql -n myapp --url
+
+
+
+minikube service nginx-service -n myapp --url
+
+kubectl set image deployment/php-deployment php=amarrak/site:v1.15 --record
+
+kubectl port-forward service/prom-prometheus-operator-prometheus 9091:9090
+
+kubectl config set-context --current --namespace=monitoring
+
+
+kubectl exec --stdin --tty mysql-master-0 -- /bin/bash
