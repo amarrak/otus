@@ -18,7 +18,7 @@ spec:
           claimName: app-vacancy-code
       containers:
       - name: php
-        image: amarrak/sitevacancy:v1.20
+        image: amarrak/sitevacancy:v1.21
         env:
         - name: DB_HOST
           valueFrom:
