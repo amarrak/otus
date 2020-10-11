@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "dbb1f70b-14ca-4c03-b71a-3af45e68811f",
+		"name": "otus_23",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateVacancy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f724e5fa-9975-417a-8c1a-133de8942396",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"department_id\":1, \"name\":\"Тестировщик\", \"active\":\"Y\", \"published\":\"N\", \"description\":\"Очень хорошая вакансия\", \"requirements\":\"Опытный\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{baseUrl}}/vacancy/create/",
+					"protocol": "http",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"vacancy",
+						"create",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "137583d7-93de-47ad-834d-0f51df651f1f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a1dc3217-3939-4687-b7db-6ddd1eac7290",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "159c8b28-5090-4386-8915-976d4c6c7f7f",
+			"key": "baseUrl",
+			"value": "arch.homework"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
