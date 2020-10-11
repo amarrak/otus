@@ -18,7 +18,7 @@ spec:
           claimName: app-vacancy-code
       containers:
       - name: php
-        image: amarrak/sitevacancy:v1.17
+        image: amarrak/sitevacancy:v1.20
         env:
         - name: DB_HOST
           valueFrom:
@@ -46,7 +46,7 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+              command: ["/bin/sh", "-c", "cp -r /myapp/. /code; cd /code; php receiver.php &"]
 
 #        initContainers:
 #        - name: install

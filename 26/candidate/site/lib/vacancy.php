@@ -58,7 +58,7 @@ class Vacancy
 		$statement = $conn->prepare($sql);
 		$statement->execute($subValues);
 
-		return $conn->lastInsertId();
+		return $data["id"]; //$conn->lastInsertId();
 	}
 
 	public function update($id, array $data) : int

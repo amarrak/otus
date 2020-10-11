@@ -18,6 +18,10 @@ docker push amarrak/sitecandidate:v1.4
 kubectl set image deployment/app-candidate-php-deployment php=amarrak/sitecandidate:v1.4 -n myapp-candidate --record
 kubectl get all -n myapp-candidate
 
+docker build -t amarrak/sitevacancy:v1.4 .
+docker push amarrak/sitevacancy:v1.4
+kubectl set image deployment/app-vacancy-php-deployment php=amarrak/sitevacancy:v1.4 -n myapp-vacancy --record
+
 kubectl describe pod  app-candidate-php-deployment-6b95cd69b5-8sp6v -n myapp-candidate
 
 kubectl set image deployment/app-auth-php-deployment php=amarrak/site:v1.23 -n myapp --record

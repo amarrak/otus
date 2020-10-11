@@ -17,19 +17,15 @@ $router->post("create",
 
 		$vacancy = new Vacancy($db);
 
-		if ($vacancyId = $vacancy->add($request->getInput()))
+		$vacancyFields = $request->getInput();
+		$vacancyFields["active"] = "P";
+
+		if ($vacancyId = $vacancy->add($vacancyFields))
 		{
 			$connection = new AMQPStreamConnection('rab-rabbitmq.rabbit.svc.cluster.local', 5672, 'user', 'MqWRoyxCU4');
 			$channel = $connection->channel();
 
 			$channel->queue_declare('VacancyCreated', false, false, false, false);
-
-//			$processedMessage = new ProcessedMessage($db);
-//			$processedMessage->add(['message_id' => $vacancyId]);
-//			$processedMessage->add(['message_id' => json_encode($vacancy->getById($vacancyId))]);
-
-//			$msg = new AMQPMessage($vacancyId);
-//			$channel->basic_publish($msg, '', 'VacancyCreated');
 
 			$msg = new AMQPMessage(json_encode($vacancy->getById($vacancyId)));
 			$channel->basic_publish($msg, '', 'VacancyCreated');

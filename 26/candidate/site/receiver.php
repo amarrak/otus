@@ -15,16 +15,31 @@ $channel->queue_declare('VacancyCreated', false, false, false, false);
 
 $callback = function (AMQPMessage $msg) use ($db)
 {
-//	$processedMessage = new ProcessedMessage($db);
-//	$processedMessage->add(['message_id' => "get"]);
-//	$processedMessage->add(['message_id' => $msg->body]);
-
 	$vacancyFields = json_decode($msg->body, true);
 
-//	$processedMessage->add(['message_id' => print_r($vacancyFields, 1)]);
-
 	$vacancy = new Vacancy($db);
-	$vacancy->add($vacancyFields);
+	if ($vacancy->add($vacancyFields))
+	{
+		$result = ["id" => $vacancyFields["id"], "success" => "Y"];
+	}
+	else
+	{
+		$result = ["id" => $vacancyFields["id"], "success" => "N"];
+	}
+
+	$pm = new ProcessedMessage($db);
+	$pm->add(['message_id' => print_r($result, 1)]);
+
+	$connection = new AMQPStreamConnection('rab-rabbitmq.rabbit.svc.cluster.local', 5672, 'user', 'MqWRoyxCU4');
+	$channel = $connection->channel();
+
+	$channel->queue_declare('VacancyApproved', false, false, false, false);
+
+	$msg = new AMQPMessage(json_encode($result));
+	$channel->basic_publish($msg, '', 'VacancyApproved');
+
+	$channel->close();
+	$connection->close();
 };
 
 $channel->basic_consume('VacancyCreated', '', false, true, false, false, $callback);

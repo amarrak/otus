@@ -10,6 +10,6 @@ RUN echo "apc.enable=1" >> /usr/local/etc/php/php.ini
 RUN mkdir /myapp
 COPY ./site/. /myapp
 #WORKDIR /myapp
-#CMD [ "php", "./index.php" ]
+#CMD [ "php", "./receiver.php" ]
 #docker build -t amarrak/sitebilling:v1.0 .
 #docker push amarrak/sitebilling:v1.0
