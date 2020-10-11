@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: vacancy-initdb-job
+spec:
+  template:
+    metadata:
+      name: vacancy-initdb-job
+    spec:
+      restartPolicy: Never
+      initContainers:
+      - name: check-db-ready
+        image: mysql:5.6
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        command:
+          - sh
+          - "-c"
+          - |
+            until mysqladmin ping -hmysqlv --silent;
+            do echo waiting for database; sleep 2; done;
+      containers:
+      - name: post-install-job
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: password
+        image: mysql:5.6
+        command: 
+          - /bin/sh
+          - "-c"
+          - |
+            mysql --host=mysqlv -uroot -ppassword myapp <<'EOF'
+              create table b_vacancy (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, department_id int not null, name varchar(128) not null, active char(1) not null default 'Y', published char(1) not null default 'N', description text, requirements text);
+              create table b_processed_message (id int NOT NULL AUTO_INCREMENT PRIMARY KEY, message_id varchar(128) not null, UNIQUE ux_pm_1 (message_id));
+            EOF
+  backoffLimit: 2

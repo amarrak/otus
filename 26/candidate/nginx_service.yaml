@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-candidate-nginx-service
+spec:
+  selector:
+    app: app-candidate-nginx
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 80
+    name: web
+  type: NodePort

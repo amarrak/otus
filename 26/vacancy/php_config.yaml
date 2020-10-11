@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-vacancy-php-config
+data:
+  DB_HOST: mysqlv
+  DB_NAME: myapp
+  DB_USER: root
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-vacancy-php-secret
+type: Opaque
+data:
+  DB_PWD: cGFzc3dvcmQ=

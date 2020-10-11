@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-vacancy-php-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-vacancy-php
+  template:
+    metadata:
+      labels:
+        app: app-vacancy-php
+    spec:
+      volumes:
+      - name: app-vacancy-code
+        persistentVolumeClaim:
+          claimName: app-vacancy-code
+      containers:
+      - name: php
+        image: amarrak/sitevacancy:v1.17
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: app-vacancy-php-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: app-vacancy-php-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: app-vacancy-php-config
+              key: DB_USER
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: app-vacancy-php-secret
+              key: DB_PWD
+        volumeMounts:
+          - name: app-vacancy-code
+            mountPath: /code
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /myapp/. /code"]
+
+#        initContainers:
+#        - name: install
+#          image: busybox
+#          volumeMounts:
+#          - name: code
+#            mountPath: /code
+#          command:
+#          - wget
+#          - "-O"
+#          - "/code/index.php"
+#          - https://raw.githubusercontent.com/amarrak/kube/master/index.php
+        
